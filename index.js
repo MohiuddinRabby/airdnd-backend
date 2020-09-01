@@ -51,26 +51,6 @@ app.get("/home/:keys", (req, res) => {
     client.close();
   });
 });
-//send data
-app.post('/addProduct', (req, res) => {
-    const product = req.body;
-    console.log(product)
-    client = new MongoClient(uri, { useNewUrlParser: true });
-    client.connect(err => {
-        const collection = client.db("airdnd").collection("homeData");
-        // perform actions on the collection object
-        console.log('mongo connected')
-        collection.insert(product, (err, result) => {
-            if (err) {
-                console.log('error', err);
-            } else {
-                res.send(result.ops[0]);
-                console.log('data inserted')
-            }
-        });
-        client.close();
-    });
-})
 //port calling
 app.listen(port, () => {
   console.log(`listening port ${port}`);
